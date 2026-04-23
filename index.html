@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVS Concrete Blocks | Building Strength, Building Trust</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        svs: {
+                            red: '#b91c1c',       
+                            redHover: '#991b1b',
+                            gold: '#facc15',      
+                            goldDark: '#eab308',
+                            grayLight: '#d1d5db', 
+                            grayFace: '#9ca3af',  
+                            grayDark: '#6b7280',  
+                            dark: '#1f2937',      
+                            light: '#fcfcfc',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                        logo: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'scrolling-text': 'scroll 25s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'ken-burns': 'kenBurns 20s ease-out infinite alternate',
+                    },
+                    keyframes: {
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        kenBurns: {
+                            '0%': { transform: 'scale(1)' },
+                            '100%': { transform: 'scale(1.1) translate(-1%, -1%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Playfair+Display:wght@800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Progress Bar */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; height: 4px; background: #facc15;
+            width: 0%; z-index: 100; transition: width 0.1s ease;
+        }
+
+        /* Advanced Staggered Scale Reveals */
+        .reveal-scale {
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); /* Premium Ease-out */
+        }
+        .reveal-scale.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .reveal-left { opacity: 0; transform: translateX(-60px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-left.active { opacity: 1; transform: translateX(0); }
+        
+        .reveal-right { opacity: 0; transform: translateX(60px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-right.active { opacity: 1; transform: translateX(0); }
+
+        /* 3D Tilt Card Styles */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+        }
+        .tilt-content {
+            transform: translateZ(30px); /* Pops the content out during tilt */
+        }
+
+        /* Backgrounds */
+        .card-bg { background: linear-gradient(135deg, #ffffff 0%, #fdfbf7 50%, #fef3c7 100%); }
+        .pattern-bg {
+            background-color: #fcfcfc;
+            background-image: radial-gradient(#eab308 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+
+        /* Gallery Hover Effects */
+        .gallery-img-wrapper { overflow: hidden; position: relative; }
+        .gallery-img { transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .gallery-img-wrapper:hover .gallery-img { transform: scale(1.08); }
+        .gallery-overlay {
+            background: linear-gradient(to top, rgba(31, 41, 55, 0.9), transparent);
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+        .gallery-img-wrapper:hover .gallery-overlay { opacity: 1; }
+        .gallery-text { transform: translateY(20px); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: 0.1s; }
+        .gallery-img-wrapper:hover .gallery-text { transform: translateY(0); opacity: 1; }
+
+        .ticker-wrapper { overflow: hidden; white-space: nowrap; display: flex; align-items: center; }
+        
+        /* Smooth image rendering */
+        img { image-rendering: -webkit-optimize-contrast; }
+    </style>
+</head>
+<body class="bg-svs-light text-svs-dark font-sans antialiased selection:bg-svs-gold selection:text-svs-dark overflow-x-hidden">
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-24 items-center transition-all duration-300" id="nav-container">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <div class="w-14 h-14 relative transform group-hover:scale-105 group-hover:-rotate-3 transition-transform duration-500">
+                        <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+                            <polygon points="50,10 90,30 90,85 50,100 10,85 10,30" fill="#facc15" />
+                            <polygon points="12,71 23,76 23,87 12,82" fill="#9ca3af" />
+                            <polygon points="25,77 36,83 36,94 25,88" fill="#9ca3af" />
+                            <polygon points="38,84 49,89 49,100 38,94" fill="#9ca3af" />
+                            <polygon points="51,89 62,84 62,94 51,100" fill="#6b7280" />
+                            <polygon points="64,83 75,77 75,88 64,94" fill="#6b7280" />
+                            <polygon points="77,76 88,71 88,82 77,87" fill="#6b7280" />
+                            <polygon points="18,59 29,65 29,76 18,70" fill="#9ca3af" />
+                            <polygon points="31,66 42,72 42,83 31,77" fill="#9ca3af" />
+                            <polygon points="58,72 69,66 69,77 58,83" fill="#6b7280" />
+                            <polygon points="71,65 82,59 82,70 71,76" fill="#6b7280" />
+                            <polygon points="44,73 49,76 49,87 44,84" fill="#9ca3af" />
+                            <polygon points="51,76 56,73 56,84 51,87" fill="#6b7280" />
+                            <polygon points="25,48 36,54 36,65 25,59" fill="#9ca3af" />
+                            <polygon points="38,55 49,60 49,71 38,66" fill="#9ca3af" />
+                            <polygon points="51,60 62,55 62,66 51,71" fill="#6b7280" />
+                            <polygon points="64,54 75,48 75,59 64,65" fill="#6b7280" />
+                            <polygon points="31,37 42,43 42,54 31,48" fill="#9ca3af" />
+                            <polygon points="58,43 69,37 69,48 58,54" fill="#6b7280" />
+                            <polygon points="44,44 49,47 49,58 44,55" fill="#9ca3af" />
+                            <polygon points="51,47 56,44 56,55 51,58" fill="#6b7280" />
+                            <polygon points="31,37 42,43 53,37 42,31" fill="#d1d5db" />
+                            <polygon points="58,43 69,37 80,43 69,49" fill="#d1d5db" />
+                            <polygon points="44,44 49,47 60,41 55,38" fill="#d1d5db" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="font-logo font-black text-4xl leading-none text-svs-red tracking-tight">SVS</span>
+                        <span class="font-serif font-bold text-[13px] text-gray-800 leading-none mt-1">Concrete Blocks</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="text-svs-dark hover:text-svs-red font-medium transition-colors">About</a>
+                    <a href="#gallery" class="text-svs-dark hover:text-svs-red font-medium transition-colors">Facility</a>
+                    <a href="#products" class="text-svs-dark hover:text-svs-red font-medium transition-colors">Products</a>
+                    <a href="#machinery" class="text-svs-dark hover:text-svs-red font-medium transition-colors">Equipment</a>
+                    <a href="#estimator" class="text-svs-goldDark hover:text-yellow-700 font-semibold transition-colors flex items-center gap-1 group">
+                        <svg class="w-4 h-4 group-hover:rotate-180 transition-transform duration-500" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"></path></svg>
+                        AI Estimator
+                    </a>
+                    <a href="#contact" class="relative overflow-hidden bg-svs-gold text-svs-dark px-6 py-2.5 rounded shadow-lg font-bold transition-all hover:-translate-y-0.5 border border-yellow-400 group">
+                        <span class="absolute inset-0 w-full h-full bg-white/30 transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.8s_forwards]"></span>
+                        Enquire Now
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-svs-dark p-2">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path id="menu-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-2xl origin-top transition-transform duration-300">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#about" class="block px-3 py-3 rounded text-base font-medium text-svs-dark hover:text-svs-red hover:bg-red-50">About</a>
+                <a href="#gallery" class="block px-3 py-3 rounded text-base font-medium text-svs-dark hover:text-svs-red hover:bg-red-50">Facility Gallery</a>
+                <a href="#products" class="block px-3 py-3 rounded text-base font-medium text-svs-dark hover:text-svs-red hover:bg-red-50">Products</a>
+                <a href="#machinery" class="block px-3 py-3 rounded text-base font-medium text-svs-dark hover:text-svs-red hover:bg-red-50">Equipment</a>
+                <a href="#estimator" class="block px-3 py-3 rounded text-base font-semibold text-svs-goldDark bg-yellow-50">AI Estimator</a>
+                <a href="#contact" class="block px-3 py-3 mt-4 text-center rounded text-base font-bold text-svs-dark bg-svs-gold border border-yellow-400">Enquire Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Ken Burns Animation) -->
+    <section class="relative pt-24 h-[95vh] min-h-[650px] flex items-center overflow-hidden border-b-[6px] border-svs-gold">
+        <!-- Animated Background -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/60 z-10"></div>
+            <!-- REPLACE WITH YOUR IMAGE -->
+            <img src="https://images.unsplash.com/photo-1541888086425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover animate-ken-burns transform-gpu" alt="SVS Concrete Yard">
+        </div>
+
+        <!-- Abstract animated shapes -->
+        <div class="absolute top-1/4 right-10 w-64 h-64 border-[15px] border-svs-gold/20 rounded animate-float hidden lg:block rotate-12 z-10"></div>
+        <div class="absolute bottom-20 left-10 w-32 h-32 border-[8px] border-svs-red/20 rounded animate-float hidden lg:block z-10" style="animation-delay: 2s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
+            <div class="max-w-3xl reveal-scale active">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-svs-gold/40 text-white font-medium text-sm mb-6 backdrop-blur-md">
+                    <span class="w-2 h-2 rounded-full bg-svs-gold animate-pulse"></span>
+                    Trusted Partner for Premium Concrete Blocks
+                </div>
+                <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-4">
+                    Building Strength,<br>
+                    <span class="text-svs-gold relative inline-block">
+                        Building Trust.
+                        <svg class="absolute w-full h-3 -bottom-1 left-0 text-svs-red opacity-80" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 50 15 100 5" stroke="currentColor" stroke-width="4" fill="transparent"/></svg>
+                    </span>
+                </h1>
+                <p class="text-lg sm:text-xl text-gray-300 mb-10 max-w-2xl font-light">
+                    Leveraging cutting-edge technology and precise engineering to deliver exceptional structural products. Quality block by block.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#products" class="bg-svs-gold hover:bg-svs-goldDark text-svs-dark text-center px-8 py-4 rounded font-bold text-lg transition-all shadow-lg shadow-yellow-500/30 hover:-translate-y-1">
+                        Explore Products
+                    </a>
+                    <a href="#contact" class="bg-svs-red hover:bg-svs-redHover text-white border border-svs-red text-center px-8 py-4 rounded font-bold text-lg transition-all shadow-lg shadow-red-500/30">
+                        Get a Quote
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <a href="#features" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce text-white/70 hover:text-svs-gold transition-colors">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </a>
+    </section>
+
+    <!-- Why Choose SVS (3D Tilt Cards) -->
+    <section id="features" class="relative z-30 -mt-16 mx-4 sm:mx-8 lg:mx-auto max-w-7xl">
+        <div class="card-bg rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] p-8 lg:p-12 border-t-4 border-svs-red reveal-scale">
+            <div class="text-center mb-10">
+                <h2 class="font-serif text-3xl font-bold text-svs-dark">Why Choose SVS?</h2>
+                <div class="w-20 h-1 bg-svs-gold mx-auto mt-4 rounded"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
+                <!-- Card 1 -->
+                <div class="tilt-card group p-4 rounded-lg hover:bg-white/50 transition-colors cursor-default" data-delay="100">
+                    <div class="tilt-content flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white border-2 border-yellow-200 text-svs-goldDark rounded-full flex items-center justify-center mb-4 group-hover:bg-svs-gold group-hover:text-white transition-all shadow-md group-hover:shadow-xl group-hover:scale-110">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-svs-dark mb-2 font-serif text-lg">Quality</h3>
+                        <p class="text-sm text-gray-600">Rigorous quality control at every stage.</p>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="tilt-card group p-4 rounded-lg hover:bg-white/50 transition-colors cursor-default" data-delay="200">
+                    <div class="tilt-content flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white border-2 border-red-200 text-svs-red rounded-full flex items-center justify-center mb-4 group-hover:bg-svs-red group-hover:text-white transition-all shadow-md group-hover:shadow-xl group-hover:scale-110">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-svs-dark mb-2 font-serif text-lg">Technology</h3>
+                        <p class="text-sm text-gray-600">Innovative machinery & techniques.</p>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="tilt-card group p-4 rounded-lg hover:bg-white/50 transition-colors cursor-default" data-delay="300">
+                    <div class="tilt-content flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white border-2 border-yellow-200 text-svs-goldDark rounded-full flex items-center justify-center mb-4 group-hover:bg-svs-gold group-hover:text-white transition-all shadow-md group-hover:shadow-xl group-hover:scale-110">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-svs-dark mb-2 font-serif text-lg">Delivery</h3>
+                        <p class="text-sm text-gray-600">Efficient logistics for on-time delivery.</p>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="tilt-card group p-4 rounded-lg hover:bg-white/50 transition-colors cursor-default" data-delay="400">
+                    <div class="tilt-content flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white border-2 border-red-200 text-svs-red rounded-full flex items-center justify-center mb-4 group-hover:bg-svs-red group-hover:text-white transition-all shadow-md group-hover:shadow-xl group-hover:scale-110">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.514"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-svs-dark mb-2 font-serif text-lg">Satisfaction</h3>
+                        <p class="text-sm text-gray-600">A commitment to exceeding expectations.</p>
+                    </div>
+                </div>
+                <!-- Card 5 -->
+                <div class="tilt-card group p-4 rounded-lg hover:bg-white/50 transition-colors cursor-default" data-delay="500">
+                    <div class="tilt-content flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white border-2 border-yellow-200 text-svs-goldDark rounded-full flex items-center justify-center mb-4 group-hover:bg-svs-gold group-hover:text-white transition-all shadow-md group-hover:shadow-xl group-hover:scale-110">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-svs-dark mb-2 font-serif text-lg">Efficiency</h3>
+                        <p class="text-sm text-gray-600">Reduces plaster costs & minimizes wastage.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Advanced Facility Gallery -->
+    <section id="gallery" class="py-24 bg-svs-dark text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal-scale">
+                <h2 class="text-svs-gold font-bold tracking-widest uppercase mb-2 text-sm">State of the Art</h2>
+                <h3 class="font-serif text-4xl font-bold mb-4">SVS Facility & Production</h3>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Take a look inside our expansive manufacturing yard, equipped with industry-leading machinery and vast curing spaces.</p>
+            </div>
+
+            <!-- CSS Grid Masonry Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 h-auto md:h-[600px]">
+                
+                <!-- Main Large Image (Rows of Blocks wide shot) -->
+                <div class="md:col-span-2 md:row-span-2 rounded-xl gallery-img-wrapper reveal-scale cursor-pointer" data-delay="100">
+                    <!-- REPLACE WITH YOUR IMAGE 1: Wide shot of blocks curing -->
+                    <img src="https://images.unsplash.com/photo-1541888086425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Block Curing Yard" class="w-full h-full object-cover gallery-img">
+                    <div class="absolute inset-0 gallery-overlay flex items-end p-8">
+                        <div class="gallery-text border-l-4 border-svs-gold pl-4">
+                            <h4 class="font-serif text-2xl font-bold">Expansive Curing Yard</h4>
+                            <p class="text-gray-300">Ensuring maximum structural strength before delivery.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary Images -->
+                <div class="rounded-xl gallery-img-wrapper reveal-scale cursor-pointer" data-delay="300">
+                    <!-- REPLACE WITH YOUR IMAGE 2: Stacked Blocks Close up -->
+                    <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Premium Concrete Blocks" class="w-full h-full object-cover gallery-img">
+                    <div class="absolute inset-0 gallery-overlay flex items-end p-6">
+                        <div class="gallery-text border-l-4 border-svs-gold pl-3">
+                            <h4 class="font-serif text-xl font-bold">Precision Finish</h4>
+                            <p class="text-sm text-gray-300">Perfect edges and dimensions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rounded-xl gallery-img-wrapper reveal-scale cursor-pointer" data-delay="500">
+                    <!-- REPLACE WITH YOUR IMAGE 3: Batching Plant/Silos/Trucks -->
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356f12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Batching Plant Infrastructure" class="w-full h-full object-cover gallery-img">
+                    <div class="absolute inset-0 gallery-overlay flex items-end p-6">
+                        <div class="gallery-text border-l-4 border-svs-red pl-3">
+                            <h4 class="font-serif text-xl font-bold">Heavy Infrastructure</h4>
+                            <p class="text-sm text-gray-300">Batching plants & Palfinger trucks.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us (Parallax & Minimalist) -->
+    <section id="about" class="py-24 bg-white overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2 relative reveal-left">
+                    <div class="absolute inset-0 bg-svs-gold transform -translate-x-4 translate-y-4 rounded-xl opacity-50"></div>
+                    <div class="relative bg-gray-100 border border-gray-200 h-[450px] rounded-xl overflow-hidden p-8 flex flex-col justify-end group">
+                        <div class="absolute inset-0 pattern-bg opacity-50 transition-transform duration-700 group-hover:scale-110"></div>
+                        <div class="absolute top-8 left-8 text-8xl font-serif font-bold text-gray-200 select-none">2022</div>
+                        <div class="relative z-10 card-bg p-6 border-l-4 border-svs-red shadow-lg rounded transform transition-transform duration-500 group-hover:-translate-y-2">
+                            <h4 class="font-bold text-svs-dark text-xl font-serif">SVS Headquarters</h4>
+                            <p class="text-gray-600 mt-1">#117/1B, Samanapalli Village,<br>Shoolagiri Taluk, Hosur - 635117</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 reveal-right">
+                    <h2 class="text-svs-red font-bold tracking-widest uppercase mb-2 text-sm">About Us</h2>
+                    <h3 class="font-serif text-4xl font-bold text-svs-dark mb-6 leading-tight">Rapidly Growing <br><span class="text-svs-goldDark">Industry Leader.</span></h3>
+                    
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        Established in 2022, SVS Concrete Blocks has swiftly grown into a leading name in the industry. We are strategically located in Hosur to efficiently serve our growing client base.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                        We leverage cutting-edge technology and precise engineering to manufacture exceptional products. We are deeply committed to quality, innovation, and service to provide durable, reliable, and efficient construction solutions.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="border-l-2 border-svs-gold pl-4 transform hover:translate-x-2 transition-transform">
+                            <h4 class="font-bold text-svs-dark text-xl font-serif">Innovation</h4>
+                            <p class="text-sm text-gray-500 mt-1">Advanced techniques for superior outputs.</p>
+                        </div>
+                        <div class="border-l-2 border-svs-red pl-4 transform hover:translate-x-2 transition-transform">
+                            <h4 class="font-bold text-svs-dark text-xl font-serif">Durability</h4>
+                            <p class="text-sm text-gray-500 mt-1">Built to withstand demanding conditions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section (3D Tilt & Stagger) -->
+    <section id="products" class="py-24 pattern-bg border-y border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal-scale">
+                <h2 class="text-svs-red font-bold tracking-widest uppercase mb-2 text-sm">Our Catalog</h2>
+                <h3 class="font-serif text-4xl font-bold text-svs-dark mb-4">Premium Concrete Blocks</h3>
+                <p class="text-gray-600 text-lg">Precision-engineered blocks designed for perfect alignment, thermal insulation, and maximum load-bearing strength.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- 4 Inch Block -->
+                <div class="tilt-card reveal-scale" data-delay="100">
+                    <div class="bg-white rounded-xl shadow-md transition-all duration-300 border border-gray-100 overflow-hidden tilt-content h-full flex flex-col">
+                        <div class="h-48 bg-gradient-to-br from-gray-50 to-gray-200 border-b border-gray-200 relative flex items-center justify-center p-6 group">
+                            <div class="w-20 h-32 bg-svs-grayLight shadow-[10px_10px_0_#9ca3af] border border-gray-400 group-hover:scale-110 transition-transform duration-500 relative">
+                                <div class="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiPjwvcmVjdD4KPC9zdmc+')]"></div>
+                            </div>
+                            <div class="absolute bottom-4 left-4 bg-svs-dark/80 backdrop-blur px-3 py-1 text-white text-xs font-bold rounded">400x100x200mm</div>
+                        </div>
+                        <div class="p-8 flex flex-col flex-grow">
+                            <h4 class="font-serif text-2xl font-bold text-svs-dark mb-4">4 Inch Block</h4>
+                            <ul class="space-y-3 mb-8 flex-grow">
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-svs-goldDark mr-3 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <span class="text-gray-600 text-sm">High compressive strength</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-svs-goldDark mr-3 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <span class="text-gray-600 text-sm">Lightweight yet durable</span>
+                                </li>
+                            </ul>
+                            <button onclick="document.getElementById('contact').scrollIntoView(); document.getElementById('req-product').value = '4 Inch Block';" class="w-full border-2 border-svs-dark text-svs-dark hover:bg-svs-dark hover:text-white font-bold py-3 rounded transition-colors uppercase tracking-wider text-sm mt-auto">Enquire</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6 Inch Block -->
+                <div class="tilt-card reveal-scale" data-delay="300">
+                    <div class="bg-white rounded-xl shadow-xl transition-all duration-300 border-2 border-svs-gold overflow-hidden relative tilt-content h-full flex flex-col">
+                        <div class="absolute top-0 right-0 bg-svs-gold text-svs-dark text-xs font-bold px-4 py-1.5 rounded-bl-lg z-10 uppercase tracking-wider">Top Choice</div>
+                        <div class="h-48 bg-gradient-to-br from-gray-50 to-gray-200 border-b border-gray-200 relative flex items-center justify-center p-6 group">
+                            <div class="w-32 h-32 bg-svs-grayLight shadow-[10px_10px_0_#9ca3af] border border-gray-400 group-hover:scale-110 transition-transform duration-500 flex flex-col justify-center gap-2 items-center relative">
+                                <div class="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiPjwvcmVjdD4KPC9zdmc+')]"></div>
+                                <div class="w-24 h-8 bg-gray-400/50 z-10"></div>
+                                <div class="w-24 h-8 bg-gray-400/50 z-10"></div>
+                            </div>
+                            <div class="absolute bottom-4 left-4 bg-svs-dark/80 backdrop-blur px-3 py-1 text-white text-xs font-bold rounded">400x150x200mm</div>
+                        </div>
+                        <div class="p-8 flex flex-col flex-grow">
+                            <h4 class="font-serif text-2xl font-bold text-svs-dark mb-4">6 Inch Block</h4>
+                            <ul class="space-y-3 mb-8 flex-grow">
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-svs-goldDark mr-3 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <span class="text-gray-600 text-sm">Superior load-bearing capacity</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-svs-goldDark mr-3 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <span class="text-gray-600 text-sm">Enhanced thermal insulation</span>
+                                </li>
+                            </ul>
+                            <button onclick="document.getElementById('contact').scrollIntoView(); document.getElementById('req-product').value = '6 Inch Block';" class="w-full bg-svs-gold hover:bg-svs-goldDark text-svs-dark font-bold py-3 rounded transition-colors uppercase tracking-wider text-sm shadow-lg border border-yellow-400 mt-auto">Enquire</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8 Inch Block -->
+                <div class="tilt-card reveal-scale" data-delay="500">
+                    <div class="bg-white rounded-xl shadow-md transition-all duration-300 border border-gray-100 overflow-hidden tilt-content h-full flex flex-col">
+                        <div class="h-48 bg-gradient-to-br from-gray-50 to-gray-200 border-b border-gray-200 relative flex items-center justify-center p-6 group">
+                            <div class="w-40 h-32 bg-svs-grayLight shadow-[10px_10px_0_#9ca3af] border border-gray-400 group-hover:scale-110 transition-transform duration-500 flex flex-col justify-center gap-2 items-center relative">
+                                <div class="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiPjwvcmVjdD4KPC9zdmc+')]"></div>
+                                <div class="w-32 h-10 bg-gray-400/50 z-10"></div>
+                                <div class="w-32 h-10 bg-gray-400/50 z-10"></div>
+                            </div>
+                            <div class="absolute bottom-4 left-4 bg-svs-dark/80 backdrop-blur px-3 py-1 text-white text-xs font-bold rounded">400x200x200mm</div>
+                        </div>
+                        <div class="p-8 flex flex-col flex-grow">
+                            <h4 class="font-serif text-2xl font-bold text-svs-dark mb-4">8 Inch Block</h4>
+                            <ul class="space-y-3 mb-8 flex-grow">
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-svs-goldDark mr-3 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <span class="text-gray-600 text-sm">Maximum load-bearing strength</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-svs-goldDark mr-3 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <span class="text-gray-600 text-sm">Designed for demanding conditions</span>
+                                </li>
+                            </ul>
+                            <button onclick="document.getElementById('contact').scrollIntoView(); document.getElementById('req-product').value = '8 Inch Block';" class="w-full border-2 border-svs-dark text-svs-dark hover:bg-svs-dark hover:text-white font-bold py-3 rounded transition-colors uppercase tracking-wider text-sm mt-auto">Enquire</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Machinery Ticker -->
+    <section id="machinery" class="py-16 bg-svs-dark text-white border-y-[6px] border-svs-gold overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 reveal-scale">
+            <div class="flex flex-col md:flex-row justify-between items-end border-b border-gray-700 pb-6">
+                <div class="max-w-2xl">
+                    <h2 class="text-svs-gold font-bold tracking-widest uppercase mb-2 text-sm">Our Machinery</h2>
+                    <h3 class="font-serif text-3xl md:text-4xl font-bold mb-4">Advanced Infrastructure.</h3>
+                    <p class="text-gray-400">We utilize advanced block-making machines equipped with high-pressure and vibration systems to ensure uniformity, consistent dimensions, superior surface finish, and unparalleled strength.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-black/40 py-6 relative">
+            <div class="absolute left-0 top-0 w-24 h-full bg-gradient-to-r from-svs-dark to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 w-24 h-full bg-gradient-to-l from-svs-dark to-transparent z-10 pointer-events-none"></div>
+            <div class="ticker-wrapper">
+                <div class="animate-scrolling-text flex space-x-12 px-6 items-center">
+                    <span class="text-xl font-bold whitespace-nowrap text-gray-300">⚙️ SCHWING Stetter Concrete Batching Plant</span>
+                    <span class="text-svs-red font-black">|</span>
+                    <span class="text-xl font-bold whitespace-nowrap text-gray-300">⚙️ F Tech Concrete Block Maker</span>
+                    <span class="text-svs-red font-black">|</span>
+                    <span class="text-xl font-bold whitespace-nowrap text-gray-300">🚜 JCB 3DX</span>
+                    <span class="text-svs-red font-black">|</span>
+                    <span class="text-xl font-bold whitespace-nowrap text-gray-300">🚜 JCB 2DX</span>
+                    <span class="text-svs-red font-black">|</span>
+                    <span class="text-xl font-bold whitespace-nowrap text-gray-300">🏗️ ACE Forklift</span>
+                    <span class="text-svs-red font-black">|</span>
+                    <span class="text-xl font-bold whitespace-nowrap text-gray-300">🚚 Leyland With PALFINGER (2 Nos)</span>
+                    <span class="text-svs-red font-black">|</span>
+                    <span class="text-xl font-bold whitespace-nowrap text-gray-300">🚚 TATA 1412</span>
+                    <span class="text-svs-red font-black">|</span>
+                    
+                    <!-- Repeat for endless scroll -->
+                    <span class="text-xl font-bold whitespace-nowrap text-gray-300">⚙️ SCHWING Stetter Concrete Batching Plant</span>
+                    <span class="text-svs-red font-black">|</span>
+                    <span class="text-xl font-bold whitespace-nowrap text-gray-300">⚙️ F Tech Concrete Block Maker</span>
+                    <span class="text-svs-red font-black">|</span>
+                    <span class="text-xl font-bold whitespace-nowrap text-gray-300">🚜 JCB 3DX</span>
+                    <span class="text-svs-red font-black">|</span>
+                    <span class="text-xl font-bold whitespace-nowrap text-gray-300">🚜 JCB 2DX</span>
+                    <span class="text-svs-red font-black">|</span>
+                    <span class="text-xl font-bold whitespace-nowrap text-gray-300">🏗️ ACE Forklift</span>
+                    <span class="text-svs-red font-black">|</span>
+                    <span class="text-xl font-bold whitespace-nowrap text-gray-300">🚚 Leyland With PALFINGER (2 Nos)</span>
+                    <span class="text-svs-red font-black">|</span>
+                    <span class="text-xl font-bold whitespace-nowrap text-gray-300">🚚 TATA 1412</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Estimator -->
+    <section id="estimator" class="py-24 bg-white relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 reveal-scale">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-svs-dark text-svs-gold shadow-[0_0_20px_rgba(250,204,21,0.3)] mb-6 border border-yellow-500/30 transform hover:rotate-12 transition-transform">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                </div>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-svs-dark mb-4">AI Material Estimator</h2>
+                <p class="text-gray-600 text-lg">Enter your wall dimensions. Our AI will instantly calculate the exact SVS blocks, cement, and sand needed for your project.</p>
+            </div>
+
+            <div class="card-bg rounded-2xl shadow-xl p-8 border border-yellow-200 transform transition-all duration-500 hover:shadow-2xl">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div>
+                        <label class="block text-sm font-bold text-svs-dark mb-2">Wall Length (Meters)</label>
+                        <input type="number" id="wall-length" placeholder="e.g. 10" class="w-full px-4 py-3 rounded border border-gray-300 focus:border-svs-red focus:ring-2 focus:ring-svs-red/20 outline-none transition-all bg-white shadow-inner">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-svs-dark mb-2">Wall Height (Meters)</label>
+                        <input type="number" id="wall-height" placeholder="e.g. 3" class="w-full px-4 py-3 rounded border border-gray-300 focus:border-svs-red focus:ring-2 focus:ring-svs-red/20 outline-none transition-all bg-white shadow-inner">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-svs-dark mb-2">SVS Block Type</label>
+                        <select id="est-block-type" class="w-full px-4 py-3 rounded border border-gray-300 focus:border-svs-red focus:ring-2 focus:ring-svs-red/20 outline-none transition-all bg-white shadow-inner">
+                            <option value='4 Inch (400x100x200mm)'>4 Inch Block</option>
+                            <option value='6 Inch (400x150x200mm)'>6 Inch Block</option>
+                            <option value='8 Inch (400x200x200mm)'>8 Inch Block</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="calc-btn" onclick="calculateMaterials()" class="w-full bg-svs-dark hover:bg-black text-svs-gold font-bold text-lg py-4 rounded transition-all shadow-lg flex items-center justify-center gap-2 group">
+                    <svg class="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    Calculate Requirements
+                </button>
+
+                <div id="estimator-result" class="hidden mt-8 p-6 bg-white rounded border-l-4 border-svs-gold shadow-sm transition-all duration-500 opacity-0 transform translate-y-4">
+                    <!-- AI response injected here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Form Section -->
+    <section id="contact" class="bg-svs-dark text-white border-t-[6px] border-svs-red">
+        <div class="flex flex-col lg:flex-row">
+            <!-- Contact Details -->
+            <div class="lg:w-1/2 p-12 lg:p-20 relative overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-svs-gold rounded-full blur-3xl opacity-10 animate-pulse"></div>
+                
+                <div class="relative z-10 reveal-left">
+                    <h2 class="text-svs-gold font-bold tracking-widest uppercase mb-2 text-sm">Get in Touch</h2>
+                    <h3 class="font-serif text-4xl font-bold mb-8">For Enquiry <br>Please Contact</h3>
+                    
+                    <div class="mb-10 p-6 bg-white/5 border border-white/10 rounded-lg backdrop-blur-sm hover:bg-white/10 transition-colors cursor-default">
+                        <h4 class="font-serif text-2xl font-bold text-white">V Udhayanan</h4>
+                        <p class="text-svs-gold italic mt-1 font-serif">Managing Director</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-center group">
+                            <div class="w-12 h-12 bg-svs-gold rounded-full flex items-center justify-center mr-4 text-svs-dark group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(250,204,21,0.5)]">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.036 11.036 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                            </div>
+                            <div class="flex flex-col">
+                                <a href="tel:+919585042037" class="text-xl font-bold hover:text-svs-gold transition-colors">+91 95850 42037</a>
+                                <a href="tel:+919585501219" class="text-xl font-bold hover:text-svs-gold transition-colors">+91 95855 01219</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center group">
+                            <div class="w-12 h-12 bg-svs-gold rounded-full flex items-center justify-center mr-4 text-svs-dark group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(250,204,21,0.5)]">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                            </div>
+                            <div>
+                                <a href="mailto:svsconcreteblock@mail.com" class="text-lg font-medium hover:text-svs-gold transition-colors">svsconcreteblock@mail.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start group mt-6 pt-6 border-t border-gray-700">
+                            <div class="w-12 h-12 bg-svs-gold rounded-full flex items-center justify-center mr-4 text-svs-dark shrink-0 group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(250,204,21,0.5)]">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-lg leading-relaxed text-gray-300">
+                                    117/1B, Samanapalli<br>
+                                    Village, Shoolagiri Taluk,<br>
+                                    Hosur - 635117
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Form -->
+            <div class="lg:w-1/2 card-bg p-12 lg:p-20 flex flex-col justify-center reveal-right text-svs-dark">
+                <h3 class="font-serif text-2xl font-bold text-svs-dark mb-6">Send an Inquiry</h3>
+                <form id="quote-form" onsubmit="event.preventDefault(); alert('Inquiry sent successfully to SVS Concrete Blocks!'); this.reset();" class="space-y-4">
+                    <input type="text" placeholder="Your Name" required class="w-full px-4 py-3 rounded border border-gray-300 focus:border-svs-red focus:ring-2 focus:ring-svs-red/50 outline-none bg-white transition-shadow shadow-sm hover:shadow-md">
+                    <input type="tel" placeholder="Phone Number" required class="w-full px-4 py-3 rounded border border-gray-300 focus:border-svs-red focus:ring-2 focus:ring-svs-red/50 outline-none bg-white transition-shadow shadow-sm hover:shadow-md">
+                    <select id="req-product" class="w-full px-4 py-3 rounded border border-gray-300 focus:border-svs-red focus:ring-2 focus:ring-svs-red/50 outline-none bg-white transition-shadow shadow-sm hover:shadow-md">
+                        <option value="">Interested Product...</option>
+                        <option value="4 Inch Block">4 Inch Concrete Block</option>
+                        <option value="6 Inch Block">6 Inch Concrete Block</option>
+                        <option value="8 Inch Block">8 Inch Concrete Block</option>
+                    </select>
+                    <textarea rows="4" placeholder="Message or Quantity Required" class="w-full px-4 py-3 rounded border border-gray-300 focus:border-svs-red focus:ring-2 focus:ring-svs-red/50 outline-none bg-white resize-none transition-shadow shadow-sm hover:shadow-md"></textarea>
+                    <button type="submit" class="bg-svs-red hover:bg-svs-redHover text-white font-bold py-4 px-8 rounded transition-all uppercase tracking-wider text-sm w-full shadow-lg hover:shadow-xl transform hover:-translate-y-1">Submit Inquiry</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-svs-light py-10 border-t border-gray-200 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col items-center gap-1 mb-4">
+                <span class="font-logo font-black text-3xl text-svs-red tracking-tight">SVS</span>
+                <span class="font-serif font-bold text-sm text-svs-dark">Concrete Blocks</span>
+                <span class="italic font-serif text-sm text-gray-500 mt-2">— Building Strength, Building Trust —</span>
+            </div>
+            <p class="text-gray-400 text-sm mt-6">
+                &copy; 2026 SVS Concrete Blocks. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        /* === Advanced Scroll Animations & Interactions === */
+
+        // 1. Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scroll-progress').style.width = scrolled + '%';
+        });
+
+        // 2. Intersection Observer (Staggered Reveals)
+        const revealElements = document.querySelectorAll('.reveal-scale, .reveal-left, .reveal-right');
+        const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.getAttribute('data-delay') || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, delay);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => revealOnScroll.observe(el));
+
+        // 3. 3D Magnetic Tilt Cards Vanilla JS
+        const tiltCards = document.querySelectorAll('.tilt-card');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; // x position within the element
+                const y = e.clientY - rect.top;  // y position within the element
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -10; // Max rotation 10deg
+                const rotateY = ((x - centerX) / centerX) * 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                card.style.transition = 'transform 0.1s ease-out';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)'; // Smooth reset
+            });
+        });
+
+        // 4. Mobile Menu & Navbar Effects
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const path = document.getElementById('menu-icon-path');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            if(menu.classList.contains('hidden')){
+                path.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+            } else {
+                path.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+            }
+        });
+
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                path.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            const container = document.getElementById('nav-container');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md');
+                container.classList.replace('h-24', 'h-20');
+            } else {
+                nav.classList.remove('shadow-md');
+                container.classList.replace('h-20', 'h-24');
+            }
+        });
+
+        // Trigger animations on load for elements already in view
+        window.dispatchEvent(new Event('scroll'));
+
+        /* === Gemini AI Integration === */
+        const apiKey = ""; 
+
+        async function fetchWithRetry(url, options, maxRetries = 5) {
+            let delay = 1000;
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                } catch (error) {
+                    if (i === maxRetries - 1) throw error;
+                    await new Promise(res => setTimeout(res, delay));
+                    delay *= 2;
+                }
+            }
+        }
+
+        async function calculateMaterials() {
+            const length = document.getElementById('wall-length').value;
+            const height = document.getElementById('wall-height').value;
+            const blockType = document.getElementById('est-block-type').value;
+            const resultDiv = document.getElementById('estimator-result');
+            const btn = document.getElementById('calc-btn');
+
+            if (!length || !height) {
+                resultDiv.innerHTML = '<p class="text-svs-red font-medium">Please enter both the length and height of your wall.</p>';
+                resultDiv.classList.remove('hidden');
+                resultDiv.style.opacity = '1';
+                resultDiv.style.transform = 'translateY(0)';
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-svs-gold inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Analyzing SVS Blocks...';
+            
+            resultDiv.style.opacity = '0';
+            setTimeout(() => { resultDiv.classList.add('hidden'); }, 300);
+
+            const prompt = `You are an expert civil engineer working for "SVS Concrete Blocks". A customer needs a material estimate for a wall.
+            
+            Wall Dimensions: Length ${length} meters, Height ${height} meters.
+            SVS Block Type Selected: ${blockType}. (Note: Length is 400mm, Height is 200mm for all SVS blocks).
+
+            Please calculate the estimated materials needed. Your response should include:
+            1. Total number of SVS blocks required (explicitly state you are including a 5% wastage allowance).
+            2. Estimated number of cement bags (50kg) needed for mortar.
+            3. Estimated volume of sand (in cubic meters) needed for mortar.
+
+            Format your response as clean, semantic HTML. 
+            - Use <ul> and <li class="mb-2"> for the list.
+            - Use <strong class="text-svs-dark text-lg"> tags for final numbers.
+            - DO NOT wrap the output in markdown code blocks. Output raw HTML. Keep the tone professional and thank them for choosing SVS.`;
+
+            try {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }],
+                    systemInstruction: { parts: [{ text: "You are an estimator tool for SVS Concrete Blocks. Output only HTML snippet content." }] }
+                };
+
+                const data = await fetchWithRetry(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                
+                if (text) {
+                    const cleanHtml = text.replace(/```html|```/gi, '').trim();
+                    resultDiv.innerHTML = `
+                        <div class="text-gray-700 space-y-3 ai-prose">
+                            ${cleanHtml}
+                            <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center flex-wrap gap-4">
+                                <p class="text-xs text-gray-400 italic">* Estimate is theoretical. Actuals depend on mortar thickness and site practices.</p>
+                                <button onclick="document.getElementById('contact').scrollIntoView();" class="text-sm font-bold text-svs-red hover:text-svs-redHover underline underline-offset-4 flex items-center gap-1">
+                                    Send to SVS for quote <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    const style = document.createElement('style');
+                    style.innerHTML = `.ai-prose ul { list-style-type: square; padding-left: 1.5rem; color: #374151; }`;
+                    resultDiv.appendChild(style);
+                } else {
+                    throw new Error("Invalid response format.");
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p class="text-red-500">Estimation failed. Please try again. (${error.message})</p>`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<svg class="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> Calculate Requirements`;
+                resultDiv.classList.remove('hidden');
+                
+                // Advanced pop-in animation for result
+                setTimeout(() => {
+                    resultDiv.style.opacity = '1';
+                    resultDiv.style.transform = 'translateY(0)';
+                }, 50);
+            }
+        }
+    </script>
+</body>
+</html>
